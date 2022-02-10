@@ -18,9 +18,11 @@ def task(common, tid, critical):
 		print(f'{tid}-{i}:Non-critical Section')
 		a += 1
 		print(f'{tid}-{i}:End of non-critical Section')
-		while is_anybody_inside(critical, tid):
-			pass
 		critical[tid] = 1
+		while is_anybody_inside(critical, tid):
+			critical[tid] = 0
+			print(f'{tid}-{i}:Giving up')
+			critical[tid] = 1
 		print(f'{tid}-{i}:Critical Section')
 		v = common.value + 1
 		print(f'{tid}-{i}:Inside Critical Section')
